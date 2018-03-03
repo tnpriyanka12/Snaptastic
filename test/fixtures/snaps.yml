@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  snap: MyText
+  snap_name: MyString
+  user_id: 1
+
+two:
+  snap: MyText
+  snap_name: MyString
+  user_id: 1
