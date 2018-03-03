@@ -3,7 +3,8 @@
 $(document).ready(function() {
 
   console.log('doc ready!');
-
+  glasses = new Image()
+  glasses.src = "/assets/glasses.png";
     // Grab Camera/Video element, create settings, etc.
     var video = document.getElementById('video');
     // Get access to the camera!
@@ -38,6 +39,19 @@ $(document).ready(function() {
         // curr_stream.getVideoTracks()[0].stop();
       // }
 
+      glasses.onload = function() {
+        context.drawImage(glasses, 0, 0);
+      };
+
+      var comp = ccv.detect_objects({ "canvas" : (ccv.pre(canvas)),
+      									"cascade" : cascade,
+      									"interval" : 5,
+      									"min_neighbors" : 1 });
+                        console.log(comp)
+                        // Draw glasses on everyone!
+                        	// for (var i = 0; i < comp.length; i++) {
+                        		context.drawImage(glasses, comp[0].x, comp[0].y,comp[0].width, comp[0].height);
+                        	// }
       console.log('after trigger photo take!');
 
     });
