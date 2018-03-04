@@ -15,7 +15,7 @@
   <tbody>
     <% @snaps.each do |snap| %>
       <tr>
-        <td><%= snap.snap %></td>
+        <td><%= image_tag snap.snap %></td>
         <td><%= snap.snap_name %></td>
         <td><%= snap.user_id %></td>
         <td><%= link_to 'Show', snap %></td>

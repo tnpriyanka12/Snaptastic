@@ -23,7 +23,7 @@ $(document).ready(function() {
   setTimeOutForCamera();
 
   filter = new Image()
-  filter.src = "/assets/glasses.png";
+  filter.src = "/assets/cat_face.png";
     // Grab Camera/Video element, create settings, etc.
     var video = document.getElementById('video');
     $('#video').hide();
@@ -57,6 +57,10 @@ $(document).ready(function() {
       timerDrawOnCanvas = setInterval(
           function () {
               context.drawImage(video, 0, 0, 640, 480);
+
+              // $('#addfilter').on('click', function(){
+
+
                 filter.onload = function() {
                   context.drawImage(filter, 0, 0);
                 };
@@ -77,14 +81,15 @@ $(document).ready(function() {
                 for (var i = 0; i < comp.length; i++) {
                 context.drawImage(filter, comp[i].x, comp[i].y,comp[i].width, comp[i].height);
                 }
+              // });
+
 
           console.log('after trigger photo take!');
+
       }, 200);
     // });
 
     }
-
-
 
 
 });
