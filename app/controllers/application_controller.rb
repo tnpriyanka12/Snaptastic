@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You must be logged in to view this page."
       redirect_to login_path
     end
+      
   end
 
   def check_if_admin
