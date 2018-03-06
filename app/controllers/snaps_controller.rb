@@ -49,15 +49,14 @@ class SnapsController < ApplicationController
   # PATCH/PUT /snaps/1
   # PATCH/PUT /snaps/1.json
   def update
-    respond_to do |format|
-      if @snap.update(snap_params)
-        format.html { redirect_to @snap, notice: 'Snap was successfully updated.' }
-        format.json { render :show, status: :ok, location: @snap }
-      else
-        format.html { render :edit }
-        format.json { render json: @snap.errors, status: :unprocessable_entity }
-      end
+    user = @current_user
+    if params[:file].present?
+      req = Cloudinary::Uploader.upload params[:file]
+      user.profile_pic= req['public_id']
     end
+    user.update_attributes(user_params)
+    user.save
+    redirect_to @current_user
   end
 
   # DELETE /snaps/1

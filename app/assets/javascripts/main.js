@@ -201,6 +201,10 @@ $(document).ready(function() {
 
 
 
+    document.getElementById('snapshot').addEventListener('click', function() {
+      clearInterval(timerDrawOnCanvas);
+    });
+
   // Downloading an image to a computer
   // ID of the canvas and a sample filename.
 

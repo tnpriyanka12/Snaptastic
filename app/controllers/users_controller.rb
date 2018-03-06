@@ -25,9 +25,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     user = User.new(user_params)
-    if params[:profile_pic].present?
+
+    if params[:file].present?
       # Then call Cloudinary's upload method, passing in the file in params
-      req = Cloudinary::Uploader.upload(params[:profile_pic])
+      req = Cloudinary::Uploader.upload(params[:file])
       user.profile_pic = req["public_id"]
     end
     user.save
@@ -38,12 +39,12 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     user = @current_user
-
-    if params[:profile_pic].present?
-      req = Cloudinary::Uploader.upload params[:profile_pic]
+    if params[:file].present?
+      req = Cloudinary::Uploader.upload params[:file]
       user.profile_pic= req['public_id']
     end
-    user.update user_params
+    user.update_attributes(user_params)
+    user.save
     redirect_to @current_user
 
   end
