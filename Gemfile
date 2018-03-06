@@ -54,4 +54,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pry-rails'
 gem 'annotate'
 gem 'jquery-rails'
-gem "fabric-rails"
+gem 'cloudinary'

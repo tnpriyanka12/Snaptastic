@@ -12,5 +12,6 @@
 //
 //= require rails-ujs
 //= require jquery
-//= require fabric
+//= require gui
+//= require main
 //= require_tree .
