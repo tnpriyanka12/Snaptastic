@@ -1,4 +1,4 @@
-<%= form_with(model: snap, local: true) do |form| %>
+<%= form_with(model: snap, local: true, html: {multipart: true}) do |form| %>
   <% if snap.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(snap.errors.count, "error") %> prohibited this snap from being saved:</h2>
@@ -17,13 +17,14 @@
     <canvas id="canvas" width="640" height="480"></canvas>
     </div>
 
-    <button id="addOverlay">Try Masks</button>
-    <button id="addFilter">Try Filters</button>
-    <button id="addText">Try Adding Text</button>
-    <button id="addFreeDraw">Try Free Drawing</button>
-    <hr/>
+    <button id="addOverlay" type="button">Try Masks</button>
+    <button id="addFilter" type="button">Try Filters</button>
+    <button id="addText" type="button">Try Adding Text</button>
+    <button id="addFreeDraw" type="button">Try Free Drawing</button>
+    <hr>
+    <button id="snapshot">Take Snapshot</button>
     <button><a id="download">Download To Computer</a></button>
-    <button><a id="download">Save in Database</a></button>
+    <button id="save" type="button">Save in Database</button>
 
   </div>
 

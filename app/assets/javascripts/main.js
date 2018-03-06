@@ -29,10 +29,10 @@ $(document).ready(function() {
 
 
 
-    var faceOverlay = false;
-    var filterEffects = false;
-    var addText = false;
-    var addFree = false;
+    var faceOverlay     = false;
+    var filterEffects   = false;
+    var textEffects     = false;
+    var freeDrawEffects = false;
 
       // Elements for taking the snapshot i.e, copying the image into canvas
       var canvas = document.getElementById('canvas');
@@ -122,28 +122,20 @@ $(document).ready(function() {
 
 
       function drawWebCamOnCanvas(){
-         //??? This is added 'coz getContext('2d') triggering some error saying null element ???
-         // if (ctx == null){
-         //   return;
-         // } else {
 
        $('#addOverlay').on('click', function() {
-         // addFilter();
          faceOverlay = !faceOverlay;
        });
 
        $('#addFilter').on('click', function() {
-        // addFilter();
         filterEffects = !filterEffects;
        });
 
        $('#addText').on('click', function() {
-        // addFilter();
         textEffects = !textEffects;
        });
 
        $('#addFreeDraw').on('click', function() {
-        // addFilter();
         freeDrawEffects = !freeDrawEffects;
        });
 
@@ -153,7 +145,7 @@ $(document).ready(function() {
            ctx.drawImage(video, 0, 0, 640, 480);
            //Add the filters - all functionality for filters here
 
-           if(addText){
+           if(textEffects){
            ctx.font = "10px Comic Sans MS";
            ctx.fillText("Hurray!!!!!",100,100);
            }
@@ -213,10 +205,33 @@ $(document).ready(function() {
   // ID of the canvas and a sample filename.
 
     document.getElementById('download').addEventListener('click', function() {
+        // e.preventDefault();
         this.href = document.getElementById('canvas').toDataURL();
         this.download = 'test.png';
     }, false);
 
+
+    // Saving an image to database
+    document.getElementById('save').addEventListener('click', function() {
+    var imageData = document.getElementById('canvas').toDataURL('image/png');
+      // console.log(imageData);
+      $.ajax({
+        url: '/snaps',
+        method: 'post',
+        dataType: 'json',
+        data: {
+          snap: imageData
+        }
+      })
+      .done(function (data) {
+        console.log('Successfull AJAX Request', data);
+        // Once successful request is done, redirect user to the Profile page
+      })
+      .fail(function () {
+        console.log('Failed AJAX Request!');
+      });
+
+    });
 
 
 

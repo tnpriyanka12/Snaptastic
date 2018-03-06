@@ -2,16 +2,22 @@
 
 <p>
   <strong>Snap:</strong>
-  <%= image_tag @snap.snap %>
+  <% if @snap.snap.present? %>
+  <%= cl_image_tag @snap.snap %>
+  <% end %>
 </p>
 <hr>
 <p>
   <strong>Snap name:</strong>
+  <% if @snap.snap_name.present? %>
   <%= @snap.snap_name %>
+  <% end %>
+
 </p>
 
 <p>
   <strong>User:</strong>
+
   <%= @snap.user_id %>
 </p>
 

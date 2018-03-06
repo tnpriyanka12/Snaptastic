@@ -15,8 +15,14 @@
   <tbody>
     <% @snaps.each do |snap| %>
       <tr>
-        <td><%= image_tag snap.snap %></td>
+        <% if snap.snap.present? %>
+        <td><%= cl_image_tag snap.snap %></td>
+        <% end %>
+
+        <% if snap.snap_name.present? %>
         <td><%= snap.snap_name %></td>
+        <% end %>
+
         <td><%= snap.user_id %></td>
         <td><%= link_to 'Show', snap %></td>
         <td><%= link_to 'Edit', edit_snap_path(snap) %></td>

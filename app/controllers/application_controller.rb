@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
   before_action :fetch_user
 
@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You must be logged in to view this page."
       redirect_to login_path
     end
-      
+
   end
 
   def check_if_admin
