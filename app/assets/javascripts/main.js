@@ -33,10 +33,13 @@ $(document).ready(function() {
     var filterEffects   = false;
     var textEffects     = false;
     var freeDrawEffects = false;
+    var endGIF          = false;
 
       // Elements for taking the snapshot i.e, copying the image into canvas
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
+      var testcanvas = document.getElementById('canvas');
+      var testctx = testcanvas.getContext('2d');
       var video = document.getElementById('video');
 
       overlayEffects = new Image()
@@ -52,6 +55,26 @@ $(document).ready(function() {
         drawWebCamOnCanvas();
         //Free Draw On canvas
         freeDrawOnCanvas();
+        //CreateGIFs
+        createGIFs();
+
+
+               $('#addOverlay').on('click', function() {
+                 faceOverlay = !faceOverlay;
+               });
+
+               $('#addFilter').on('click', function() {
+                filterEffects = !filterEffects;
+               });
+
+               $('#addText').on('click', function() {
+                textEffects = !textEffects;
+               });
+
+               $('#addFreeDraw').on('click', function() {
+                freeDrawEffects = !freeDrawEffects;
+               });
+
 
 
       function getCamElements(){
@@ -119,26 +142,35 @@ $(document).ready(function() {
       }
 
 
+      function createGIFs() {
 
+        let TimerToGetGifFrames ;
+        var encoder = new GIFEncoder();
+
+        $('#endGif').on('click', function() {
+         clearInterval(TimerToGetGifFrames);
+         encoder.finish();
+         var binary_gif = encoder.stream().getData() //notice this is different from the as3gif package!
+         var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+         encoder.finish();
+         encoder.download("download.gif");
+        });
+
+
+        $('#addGifs').on('click', function() {
+
+          encoder.setRepeat(3); //0  -> loop forever
+          encoder.setDelay(500); //go to next frame every n millisecond
+          encoder.start();
+          TimerToGetGifFrames = setInterval( function () {
+            encoder.addFrame(ctx);
+          }, 200);
+
+
+        })//$(addGifs)
+      }//createGIFs
 
       function drawWebCamOnCanvas(){
-
-       $('#addOverlay').on('click', function() {
-         faceOverlay = !faceOverlay;
-       });
-
-       $('#addFilter').on('click', function() {
-        filterEffects = !filterEffects;
-       });
-
-       $('#addText').on('click', function() {
-        textEffects = !textEffects;
-       });
-
-       $('#addFreeDraw').on('click', function() {
-        freeDrawEffects = !freeDrawEffects;
-       });
-
 
        timerDrawOnCanvas = setInterval( function () {
            //Draw the webcam on canvas every 200ms -> now we have a live canvas on which we can draw

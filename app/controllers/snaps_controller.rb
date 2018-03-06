@@ -49,14 +49,14 @@ class SnapsController < ApplicationController
   # PATCH/PUT /snaps/1
   # PATCH/PUT /snaps/1.json
   def update
-    user = @current_user
-    if params[:file].present?
-      req = Cloudinary::Uploader.upload params[:file]
-      user.profile_pic= req['public_id']
-    end
-    user.update_attributes(user_params)
-    user.save
-    redirect_to @current_user
+    # user = @current_user
+    # if params[:file].present?
+    #   req = Cloudinary::Uploader.upload params[:file]
+    #   user.profile_pic= req['public_id']
+    # end
+    # user.update_attributes(:snap_name)
+    # user.save
+    # redirect_to @current_user
   end
 
   # DELETE /snaps/1
