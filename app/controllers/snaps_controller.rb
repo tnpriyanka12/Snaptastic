@@ -33,8 +33,6 @@ class SnapsController < ApplicationController
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:snap])
       snap.snap = req["public_id"]
-      puts "=" * 80
-      p snap
     end
 
     respond_to do |format|

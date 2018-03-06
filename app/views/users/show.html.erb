@@ -11,13 +11,8 @@
 </p>
 
 <p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Profile pic:</strong>
-  <%= @user.profile_pic %>
+  <strong>Profile pic:</strong><br>
+  <%= cl_image_tag @user.profile_pic %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
