@@ -3,6 +3,7 @@
   <head>
     <title>SnapchatApp</title>
     <%= favicon_link_tag 'favicon.ico' %>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <meta name="theme-color" content="#ffffff">
     <%= csrf_meta_tags %>
 
@@ -12,6 +13,11 @@
   </head>
 
   <body class="<%= controller.controller_name %> <%= controller.action_name %>">
+    <header>
+    <div class="row text-center">
+      <!-- <img class="logo" src="/assets/logo/logo.png" /> -->
+    </div>
+    </header>
     <% if @current_user.present? %>
     <h2> Welcome, <%= @current_user.name %> </h2>
       <h3><%= link_to 'Click to See Your Profile', @current_user , class: "welcomeuser"%></h3>

@@ -27,14 +27,12 @@ class SnapsController < ApplicationController
     snap = Snap.new(snap_params)
     # puts params[:snap]
     # binding.pry
-    # raise 'hell'
 
     if params[:snap].present?
       # Then call Cloudinary's upload method, passing in the file in params
       req = Cloudinary::Uploader.upload(params[:snap])
       snap.snap = req["public_id"]
     end
-
     respond_to do |format|
       if snap.save
         format.html { redirect_to snap, notice: 'Snap was successfully created.' }
@@ -44,19 +42,23 @@ class SnapsController < ApplicationController
         format.json { render json: snap.errors, status: :unprocessable_entity }
       end
     end
+    @current_user.snaps << snap
+    raise 'hell'
+
+
   end
 
   # PATCH/PUT /snaps/1
   # PATCH/PUT /snaps/1.json
   def update
-    # user = @current_user
+    user = @current_user
     # if params[:file].present?
     #   req = Cloudinary::Uploader.upload params[:file]
     #   user.profile_pic= req['public_id']
     # end
-    # user.update_attributes(:snap_name)
-    # user.save
-    # redirect_to @current_user
+    user.update_attributes(snap_params)
+    user.save
+    redirect_to @current_user
   end
 
   # DELETE /snaps/1
@@ -77,6 +79,6 @@ class SnapsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def snap_params
-      params.permit(:snap)
+      params.permit(:snap, :snap_name)
     end
 end

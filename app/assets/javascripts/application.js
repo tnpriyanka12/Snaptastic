@@ -15,3 +15,4 @@
 //= require gui
 //= require main
 //= require_tree .
+//= require bootstrap-sprockets
