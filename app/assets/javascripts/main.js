@@ -43,7 +43,20 @@ $(document).ready(function() {
       var video = document.getElementById('video');
 
       overlayEffects = new Image()
-      overlayEffects.src = "/assets/overlays/glasses.png";
+      overlayEffects.src = "/assets/overlays/cat_face.png";
+
+      // ======== sticker tab - unicar ========
+      $('#sticker').on('click', function() {
+        var canvas_fabric = new fabric.Canvas('canvas');
+
+
+        fabric.Image.fromURL('/assets/overlays/cat_face.png', function(oImg) {
+          // scale image down, and flip it, before adding it onto canvas
+          oImg.scale(0.5).set('flipX', true);
+          canvas.add(oImg);
+        });
+
+      });
 
 
         //temporary - to be removed
