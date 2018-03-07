@@ -10,7 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= form.label :snap_name %>
+    <%= form.text_field :snap_name, id: :snap_snap_name %>
+  </div>
   <div class="field">
     <div id="myOnlineCamera">
     <video id="video" width="640" height="480" autoplay></video>
@@ -38,15 +41,12 @@
 
   </div>
 
-  <div class="field">
-    <%= form.label :snap_name %>
-    <%= form.text_field :snap_name, id: :snap_snap_name %>
-  </div>
 
+<!--
 
   <div class="actions">
     <%= form.submit %>
-  </div>
+  </div> -->
 
 
 <% end %>
