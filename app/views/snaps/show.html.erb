@@ -20,8 +20,8 @@
     <%= c.comment_string %><br/>
     <% end %>
 <hr>
-<%= link_to 'Add Comment', new_comment_path %>
 
+<%= render 'comments/form', snap: @snap, comment: Comment.new %>
 
 <%= link_to 'Edit', edit_snap_path(@snap) %> |
 <%= link_to 'Back', snaps_path %>

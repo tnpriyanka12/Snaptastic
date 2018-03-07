@@ -43,14 +43,14 @@ $(document).ready(function() {
       var video = document.getElementById('video');
 
       overlayEffects = new Image()
-      overlayEffects.src = "/assets/overlays/cat_face.png";
+      overlayEffects.src = "/assets/cat_face.png";
 
       // ======== sticker tab - unicar ========
       $('#sticker').on('click', function() {
         var canvas_fabric = new fabric.Canvas('canvas');
 
 
-        fabric.Image.fromURL('/assets/overlays/cat_face.png', function(oImg) {
+        fabric.Image.fromURL('/assets/cat_face.png', function(oImg) {
           // scale image down, and flip it, before adding it onto canvas
           oImg.scale(0.5).set('flipX', true);
           canvas.add(oImg);
@@ -167,17 +167,23 @@ $(document).ready(function() {
          var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
          encoder.finish();
          encoder.download("download.gif");
+
+         $('<img>', {src: data_url}).appendTo('#gifPreview');
+         $('<button>Save</button>').on('click', function () {
+
+         });
+
         });
 
 
         $('#addGifs').on('click', function() {
 
-          encoder.setRepeat(3); //0  -> loop forever
-          encoder.setDelay(500); //go to next frame every n millisecond
+          encoder.setRepeat(0); //0  -> loop forever
+          encoder.setDelay(100); //go to next frame every n millisecond
           encoder.start();
           TimerToGetGifFrames = setInterval( function () {
             encoder.addFrame(ctx);
-          }, 200);
+          }, 100);
 
 
         })//$(addGifs)
