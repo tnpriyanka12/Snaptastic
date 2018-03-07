@@ -57,3 +57,4 @@ gem 'pry-rails'
 gem 'annotate'
 gem 'jquery-rails'
 gem 'cloudinary'
+gem 'rails_12factor', group: :production
