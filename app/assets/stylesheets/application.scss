@@ -22,6 +22,9 @@
 
  body{
    font-family: 'Poiret One', cursive;
+   // background-image: url('https://media.giphy.com/media/MdCdAYkDRYrkI/giphy.gif');
+   // background-repeat: no-repeat;
+   // background-size: cover;
  }
 
 #sticker{
@@ -37,7 +40,35 @@
    width: 200px;
  }
 
- .addOverlay, .sticker{
+ .addOverlay, .sticker, .snaptastic{
    height: 50px;
    width: 50px;
  }
+
+
+ .btn-primary {
+   background-color: #222222;
+   border-color: #FFFFFF;
+   width: 100px;
+   padding: 10px;
+   margin: 5px;
+ }
+
+#download{
+  color: white;
+}
+
+.container-fluid{
+  background-image: url('/assets/snaptastic.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  height: 200px;
+
+}
+
+#canvas, #testcanvas {
+  border: 5px solid black;
+  border-radius: 10px;
+}

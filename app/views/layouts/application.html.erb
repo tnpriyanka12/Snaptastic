@@ -21,54 +21,40 @@
     <% if @current_user.present? %>
     <h2> Welcome, <%= @current_user.name %> </h2>
       <h3><%= link_to 'Click to See Your Profile', @current_user , class: "welcomeuser"%></h3>
-
       <%= link_to 'Logout', login_path, method: :delete %>
     <% else %>
       <%= link_to 'Login', login_path %>
     <% end %>
 
-
-    
-    <!-- <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
-          <%= link_to 'SNAPTASTIC', root_path, class: "navbar-brand" %>
-
+          <!-- <a class="navbar-brand" href="<%= root_path %>">SNAPTATISTIC
+          </a><img class="snaptastic" src="/assets/snaptastic.png"> -->
         </div>
-
-
         <div class="collapse navbar-collapse" id="myNavbar">
-          <div >
-            <% if @current_user.present? %>
-              <h5><%= link_to @current_user.name, @current_user , class: "welcomeuser"%></h5>
-            <% end %>
-          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li class="active"><a href="<%= root_path %>">Take Snap</a></li>
+            <!-- <li class="active"><a href="<%= @current_user %>"><%= link_to 'Profile', @current_user , class: "welcomeuser"%></a>Profile</li> -->
+            <li class="active"><a href="<%= @current_user %>">Profile</a></li>
 
+            <li class="active"><a href="<%= snaps_path %>">Gallery</a></li>
+            <!-- <li><a href="#">EXTRA</a></li> -->
+          </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if @current_user.present? %>
-              <li><%= link_to 'Home', root_path %></li>
-              <li><%= link_to 'Gallery', snaps_path %></li>
-              <li><%= link_to 'Profile', @current_user %></li>
-
-              <li><%= link_to 'Logout', login_path, method: :delete %></li>
-            <% else %>
-              <li>  <%= link_to 'Home', root_path %></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Games</a></li>
-              <li><a href="#portfolio">Our Values</a></li>
-              <li>  <%= link_to 'Login', login_path %></li>
-
-            <% end %>
+            <li><a href="<%= login_path %>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </div>
-    </nav> -->
+    </nav>
+
+
     <%= yield %>
   </body>
 </html>

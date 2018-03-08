@@ -45,8 +45,21 @@
   };
   const CANVAS_REFRESH_RATE = 16;
 
+
   $(document).ready(function() {
-  $('#testcanvas').hide();
+    // Elements for taking the snapshot i.e, copying the image into canvas
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var testcanvas = document.getElementById('testcanvas');
+    var testctx = testcanvas.getContext('2d');
+    var video = document.getElementById('video');
+
+
+    $('#testcanvas').hide();
+    $('.stickerbtn').hide();
+    $('#addText').hide();
+    $('#addFreeDraw').hide();
+
 
   if( $('body.snaps.new').length ){
 
@@ -60,35 +73,13 @@
     }
 
 
-
-    // Create an instance, which also creates a UI pane
-    var gui = new dat.GUI();
-    // My sample abject
-      var filt = {
-        sepia: 50
-      };
-
-      // sepia field
-      gui.add(filt, 'sepia', 0, 100);
-      // Listen to changes within the GUI
-      gui.add(filt, "sepia").onChange(function(newValue) {
-        console.log("Value changed to:  ", newValue);
-      });
-
-
-
     var faceOverlay     = false;
-    var filterEffects   = false;
+    var filterEffects   = true;
     var textEffects     = false;
     var freeDrawEffects = false;
     var endGIF          = false;
 
-      // Elements for taking the snapshot i.e, copying the image into canvas
-      var canvas = document.getElementById('canvas');
-      var ctx = canvas.getContext('2d');
-      var testcanvas = document.getElementById('testcanvas');
-      var testctx = testcanvas.getContext('2d');
-      var video = document.getElementById('video');
+
       overlayEffects = new Image();
 
       $('.addOverlay').on('click', function() {
@@ -99,10 +90,14 @@
         console.log('this is ', this,overlayEffects.src )
       });
 
+
+
+
+
       // ======== sticker tab - unicar ========
       $('.sticker').on('click', function() {
         $('#testcanvas').show();
-        // $('#canvas').hide();
+        $('#canvas').hide();
         var canvas_fabric =  new fabric.Canvas('testcanvas', {
           width: 640,
           height: 480,
@@ -115,6 +110,11 @@
           // scale image down, and flip it, before adding it onto canvas
           oImg.scale(0.2);
           canvas_fabric.add(oImg);
+          document.getElementById('download').addEventListener('click', function() {
+              this.href = canvas_fabric.toDataURL();
+              this.download = 'test.png';
+          }, false);
+
         });
 
       });//sticker.onclick
@@ -133,18 +133,25 @@
             document.getElementByClass('upper-canvas').style.backgroundColor = '#' + jscolor
         }
 
+        var fontColor = $('#font-color').val() || 'red'
+        var fontSize = parseInt( $('#font-size').val() ) || 20;
+
          var text = new fabric.IText('Enter your text here', {
            width: 300,
            top: 240,
            left: 80,
-           fontSize: 10,
+           fontSize: fontSize,
            textAlign: 'center',
            fixedWidth: 150,
-           fill: 'red',
+           fill: fontColor,
            fontFamily: 'Avenir'
          });
 
          canvas_fabric.add(text);
+         document.getElementById('download').addEventListener('click', function() {
+             this.href = canvas_fabric.toDataURL();
+             this.download = 'test.png';
+         }, false);
        });
 
 
@@ -164,16 +171,16 @@
              canvas_fabric.freeDrawingBrush = new fabric['PencilBrush'](canvas_fabric);
              canvas_fabric.freeDrawingBrush.width = 10;
              canvas_fabric.freeDrawingBrush.color = '#005E7A';
-           });
 
-           // disable the brush (drawing mode is false)
-           $('.menu a.item').on('click', function(){
-             canvas_fabric.isDrawingMode = false;
-             if ( $('#brush').hasClass('active') ){
-               canvas_fabric.isDrawingMode = true;
-             }
 
-           });
+
+             document.getElementById('download').addEventListener('click', function() {
+                 this.href = canvas_fabric.toDataURL();
+                 debugger;
+                 this.download = 'test.png';
+             }, false);
+
+   });
 
         //temporary - to be removed
         //Camera draining my battery.. set a timer for it!
@@ -188,17 +195,27 @@
         createGIFs();
 
 
-               $('#addFilter').on('click', function() {
-                filterEffects = !filterEffects;
-               });
+               $('#filter-val-sepia').on('click', function() {
+                 // set font color and size
+                  var filter_val = parseInt( $('#filter-val-sepia').val() );
+                  ctx.filter = "sepia("+ filter_val +"%)";
 
-               // $('#addText').on('click', function() {
-               //  textEffects = !textEffects;
+               });
+               $('#filter-val-bw').on('click', function() {
+                 // set font color and size
+                  var filter_val_bw = $('#filter-val-bw').val();
+                  ctx.filter = "greyscale("+ filter_val_bw +"%)";
+
+               });
+               $('#filter-val-mix').on('click', function() {
+                 // set font color and size
+                  var filter_val_mix = $('#filter-val-mix').val();
+                  ctx.filter = "saturate("+ filter_val_mix +"%)";
+
+               });
+               // $('#addFreeDraw').on('click', function() {
+               //  freeDrawEffects = !freeDrawEffects;
                // });
-
-               $('#addFreeDraw').on('click', function() {
-                freeDrawEffects = !freeDrawEffects;
-               });
 
 
 
@@ -219,7 +236,7 @@
             .then(function(stream) {
                 curr_stream = stream;
                 video.src = window.URL.createObjectURL(stream);
-                video.play();
+                // video.play();
              },
              function(err) {
               console.log("Unable to get video stream!")
@@ -284,6 +301,7 @@
          $('<img>', {src: data_url}).appendTo('#gifPreview');
          $('<button>Save</button>').on('click', function () {
 
+           window.location.href = "http://localhost:3000/snaps/";
          });
 
         });
@@ -318,11 +336,7 @@
              addOverlays();
            }
 
-           if(filterEffects){
-             addFilter()
-           } else {
-             removeFilter()
-           }
+
            // console.log('after trigger photo take!');
            timerDrawOnCanvas = requestAnimationFrame(animate);
          };
@@ -335,14 +349,6 @@
 
 
 
-
-      function addFilter(){
-        ctx.filter = "sepia("+ filt.sepia +"%)";
-      }
-
-      function removeFilter(){
-        ctx.filter = "none";
-      }
 
       function addOverlays() {
 
@@ -377,7 +383,14 @@
       // clearInterval(timerDrawOnCanvas);
       cancelAnimationFrame(timerDrawOnCanvas);
       data_url = document.getElementById('canvas').toDataURL();
+      $('.stickerbtn').show();
+      $('#addText').show();
+      $('#addFreeDraw').show();
+      $('.overlaybutton').hide();
+      $('#addFilter').hide();
+
       $('#testcanvas', {src: data_url}).appendTo('#gifPreview');
+
     });
 
   // Downloading an image to a computer
@@ -386,13 +399,18 @@
     document.getElementById('download').addEventListener('click', function() {
         // e.preventDefault();
         this.href = document.getElementById('canvas').toDataURL();
+
+        // debugger;
+        // ($('#testcanvas').is(':visible'))
+        // this.href = document.getElementById('testcanvas').toDataURL();
+
         this.download = 'test.png';
     }, false);
 
 
     // Saving an image to database
     document.getElementById('save').addEventListener('click', function() {
-    var imageData = document.getElementById('testcanvas').toDataURL('image/png');
+    var imageData = document.getElementById('canvas').toDataURL('image/png');
       // console.log(imageData);
       $.ajax({
         url: '/snaps',
@@ -409,6 +427,7 @@
       .fail(function () {
         console.log('Failed AJAX Request!');
       });
+      window.location.href = "http://localhost:3000/snaps/";
 
     });
 
