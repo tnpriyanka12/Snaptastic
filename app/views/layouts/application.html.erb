@@ -42,13 +42,15 @@
             <li class="active"><a href="<%= root_path %>">Home</a></li>
             <li class="active"><a href="<%= root_path %>">Take Snap</a></li>
             <!-- <li class="active"><a href="<%= @current_user %>"><%= link_to 'Profile', @current_user , class: "welcomeuser"%></a>Profile</li> -->
-            <li class="active"><a href="<%= @current_user %>">Profile</a></li>
+            <li class="active"><a href="/users/<%= @current_user.id %>">Profile</a></li>
 
             <li class="active"><a href="<%= snaps_path %>">Gallery</a></li>
             <!-- <li><a href="#">EXTRA</a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<%= login_path %>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="<%= login_path %>"><span class="glyphicon glyphicon-log-in"></span> LogOut</a><%= link_to '', login_path, method: :delete %></li>
+
           </ul>
         </div>
       </div>

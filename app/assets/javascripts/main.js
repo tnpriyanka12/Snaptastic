@@ -204,7 +204,7 @@
                $('#filter-val-bw').on('click', function() {
                  // set font color and size
                   var filter_val_bw = $('#filter-val-bw').val();
-                  ctx.filter = "greyscale("+ filter_val_bw +"%)";
+                  ctx.filter = "grayscale("+ filter_val_bw +"%)";
 
                });
                $('#filter-val-mix').on('click', function() {
@@ -431,6 +431,22 @@
 
     });
 
+
+
+
+
+
+
+    document.onkeypress = function(e) {
+        if (e.keyCode == 32) {
+
+          setTimeout(function(){
+          document.getElementById('download').href = document.getElementById('canvas').toDataURL();
+          document.getElementById('download').click();
+          alert('Your image is downloaded!')
+          }, 3000);
+        }
+      };
 
 
 
