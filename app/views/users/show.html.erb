@@ -1,32 +1,43 @@
 <p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-body">
+        <p>
+          <strong>Name:</strong>
+          <%= @user.name %>
+        </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+        <p>
+          <strong>Email:</strong>
+          <%= @user.email %>
+        </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+        <p>
 
-<p>
-  <strong>Profile pic:</strong><br>
-  <%= cl_image_tag @user.profile_pic %>
+          <strong>Profile pic:</strong><br>
+          <%= cl_image_tag @user.profile_pic %>
+</div>
+</div>
 </p>
 <hr>
 
+<div class="panel panel-default">
+  <div class="panel-body">
+
 <% if @current_user %>
+
   <strong>Your Snaps:</strong><br>
 
     <% @user.snaps.each do |s| %>
     <%= cl_image_tag s.snap %><br>
 
                 <strong> <%= s.comments.length %> Comments:</strong><br/>
-
                     <% s.comments.each do |c| %>
+                      <div class="panel-body">
                     <%= c.comment_string %><br/>
+                </div>
                     <% end %>
+                  </div>
+                </div>
     <hr/>
     <% end %>
 

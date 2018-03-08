@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<div class="panel panel-default">
+  <div class="panel-body">
 <p>
   <strong>Snap:</strong>
+
   <% if @snap.snap.present? %>
   <%= cl_image_tag @snap.snap %>
   <% end %>
@@ -21,7 +24,9 @@
     <% end %>
 <hr>
 
-<%= render 'comments/form', snap: @snap, comment: Comment.new %>
 
+<%= render 'comments/form', snap: @snap, comment: Comment.new %>
+</div>
+</div>
 <%= link_to 'Edit', edit_snap_path(@snap) %> |
 <%= link_to 'Back', snaps_path %>
