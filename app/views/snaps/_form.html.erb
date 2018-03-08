@@ -25,7 +25,7 @@
       <div class="row">
           <div class="col-md-2">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Stickers
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -36,7 +36,6 @@
                   <img   class="sticker" src="/assets/puppy.png">
                   <img   class="sticker" src="/assets/reddog.png">
                   <img   class="sticker"  src="/assets/rabbit.png">
-                  <img   class="sticker" src="/assets/cat_face.png">
                   <img   class="sticker" src="/assets/unicorn.png">
               </div>
             </div>
@@ -48,20 +47,19 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <img   width="640" height="480" class="addOverlay"  data-name="glasses" src="/assets/glasses.png">
                 <img   width="1000" height="480" class="addOverlay" data-name="cat_face" src="/assets/cat_face.png">
-                <img   width="640" height="480" class="addOverlay" data-name="catty" src="/assets/catty.png">
-                <img   width="640" height="480" class="addOverlay" data-name="puppy" src="/assets/puppy.png">
+                <img   width="640" height="480" class="addOverlay" data-name="mustache" src="/assets/mustache.png">
+                <img   width="640" height="480" class="addOverlay" data-name="mustache2" src="/assets/mustache2.png">
                 <img   width="640" height="480" class="addOverlay" data-name="reddog" src="/assets/reddog.png">
-                <img   width="640" height="480" class="addOverlay" data-name="rabbit" src="/assets/rabbit.png">
+                <img   width="640" height="480" class="addOverlay" data-name="mona" src="/assets/rabbit.png">
                 <img   width="640" height="480" class="addOverlay" data-name="unicorn" src="/assets/unicorn.png">
             </div>
             </div>
 
-            <button  class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="addFilter" type="button">Try Filters</button>
+            <button id="addFilter" type="button">Try Filters</button>
             <br>
-            <button  class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="addText" type="button">Try Adding Text</button>
+            <button id="addText" type="button">Try Adding Text</button>
             <br>
-            <!-- <button id="addFreeDraw" type="button">Try Free Drawing</button> -->
-            <input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">
+            <button id="addFreeDraw" type="button">Try Free Drawing</button>
             <hr>
 
           </div>
@@ -71,9 +69,9 @@
 
           <div class="col-sm-8">
             <div id="myOnlineCamera">
-              <video  class="border border-primary" id="video" width="640" height="480" autoplay></video>
-              <canvas class="border border-primary" id="canvas" width="640" height="480"></canvas>
-              <canvas class="border border-primary" id="testcanvas" width="200" height="200"></canvas>
+              <video id="video" width="640" height="480" autoplay></video>
+              <canvas  id="canvas" width="640" height="480"></canvas>
+              <canvas  id="testcanvas" width="200" height="200"></canvas>
             </div>
 
 
@@ -83,8 +81,8 @@
           <div class="col-md-2">
             <div id="gifsbar">
             <h3> GIFs </h3>
-            <button  class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="addGifs" type="button">Create GIF</button>
-            <button   class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="endGif" type="button">End GIF</button>
+            <button id="addGif"type="button">Create GIF</button>
+            <button id="endGif" type="button">End GIF</button>
             <div id="gifPreview">
             </div>
 
@@ -93,9 +91,9 @@
       </div>
 
       </div  class="col-md-12">
-        <button   class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="snapshot" type="button">Take Snapshot</button>
-        <button  class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><a id="download">Download To Computer</a></button>
-        <button   class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="save" type="button">Save in Database</button>
+        <button id="takesnapshot" type="button">Take Snapshot</button>
+        <button type="button" ><a id="download">Download To Computer</a></button>
+        <button id="save" type="button">Save in Database</button>
 
       </div>
 

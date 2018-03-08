@@ -1,14 +1,46 @@
 
   const overlayConfig = {
     glasses: {
-      scaleFactor: 1,
+      xscaleFactor: 1,
+      yscaleFactor: 1,
+      xOffset: 0,
+      yOffset: 0
+    },
+    cat_face: {
+      xscaleFactor: 1.5,
+      yscaleFactor: 1.9,
+      xOffset: -40,
+      yOffset: -90
+    },
+    mustache: {
+      xscaleFactor: 1,
+      yscaleFactor: 1,
+      xOffset: 0,
+      yOffset: 50
+    },
+    mustache2: {
+      xscaleFactor: 1.5,
+      yscaleFactor: 2,
+      xOffset: -50,
+      yOffset: -90
+    },
+    reddog: {
+      xscaleFactor: 1.5,
+      yscaleFactor: 2,
+      xOffset: -50,
+      yOffset: -90
+    },
+    mona: {
+      xscaleFactor: 2,
+      yscaleFactor: 2,
       xOffset: 0,
       yOffset: -100
     },
-    cat_face: {
-      scaleFactor: 2,
-      xOffset: -20,
-      yOffset: -40
+    unicorn: {
+      xscaleFactor: 3,
+      yscaleFactor: 4,
+      xOffset: 100,
+      yOffset: -240
     }
   };
   const CANVAS_REFRESH_RATE = 16;
@@ -69,6 +101,8 @@
 
       // ======== sticker tab - unicar ========
       $('.sticker').on('click', function() {
+        $('#testcanvas').show();
+        // $('#canvas').hide();
         var canvas_fabric =  new fabric.Canvas('testcanvas', {
           width: 640,
           height: 480,
@@ -86,6 +120,7 @@
       });//sticker.onclick
 
       $('#addText').on('click', function(){
+        $('#testcanvas').show();
         var canvas_fabric =  new fabric.Canvas('testcanvas', {
           width: 640,
           height: 480,
@@ -98,7 +133,7 @@
             document.getElementByClass('upper-canvas').style.backgroundColor = '#' + jscolor
         }
 
-         var text = new fabric.IText('Type text here', {
+         var text = new fabric.IText('Enter your text here', {
            width: 300,
            top: 240,
            left: 80,
@@ -113,6 +148,33 @@
        });
 
 
+       // activate the brush (drawing mode is true)
+           $('#addFreeDraw').on('click', function() {
+             $('#testcanvas').show();
+
+             var canvas_fabric =  new fabric.Canvas('testcanvas', {
+               width: 640,
+               height: 480,
+             });
+             data_url = document.getElementById('canvas').toDataURL();
+             canvas_fabric.setBackgroundImage(data_url, canvas_fabric.renderAll.bind(canvas_fabric));
+
+             canvas_fabric.isDrawingMode = true;
+             // Use Pencil Brush for drawing
+             canvas_fabric.freeDrawingBrush = new fabric['PencilBrush'](canvas_fabric);
+             canvas_fabric.freeDrawingBrush.width = 10;
+             canvas_fabric.freeDrawingBrush.color = '#005E7A';
+           });
+
+           // disable the brush (drawing mode is false)
+           $('.menu a.item').on('click', function(){
+             canvas_fabric.isDrawingMode = false;
+             if ( $('#brush').hasClass('active') ){
+               canvas_fabric.isDrawingMode = true;
+             }
+
+           });
+
         //temporary - to be removed
         //Camera draining my battery.. set a timer for it!
         setTimeOutForCamera();
@@ -126,17 +188,13 @@
         createGIFs();
 
 
-               // $('.addOverlay').on('click', function() {
-               //   faceOverlay = !faceOverlay;
-               // });
-
                $('#addFilter').on('click', function() {
                 filterEffects = !filterEffects;
                });
 
-               $('#addText').on('click', function() {
-                textEffects = !textEffects;
-               });
+               // $('#addText').on('click', function() {
+               //  textEffects = !textEffects;
+               // });
 
                $('#addFreeDraw').on('click', function() {
                 freeDrawEffects = !freeDrawEffects;
@@ -186,7 +244,7 @@
           }, false);
 
           /* Drawing on Paint App */
-          ctx.lineWidth = 5;
+          ctx.lineWidth = 4;
           ctx.lineJoin = 'round';
           ctx.lineCap = 'round';
           ctx.strokeStyle = 'black';
@@ -208,14 +266,15 @@
           };
       }
 
+      let timerToGetGifFrames;
 
       function createGIFs() {
 
-        let TimerToGetGifFrames ;
         var encoder = new GIFEncoder();
 
         $('#endGif').on('click', function() {
-         clearInterval(TimerToGetGifFrames);
+
+         clearInterval(timerToGetGifFrames);
          encoder.finish();
          var binary_gif = encoder.stream().getData() //notice this is different from the as3gif package!
          var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
@@ -230,15 +289,14 @@
         });
 
 
-        $('#addGifs').on('click', function() {
-
+        $('#addGif').on('click', function() {
+          // console.log('addGifs');
           encoder.setRepeat(0); //0  -> loop forever
           encoder.setDelay(100); //go to next frame every n millisecond
           encoder.start();
-          TimerToGetGifFrames = setInterval( function () {
+          timerToGetGifFrames = setInterval( function () {
             encoder.addFrame(ctx);
           }, 100);
-
 
         })//$(addGifs)
       }//createGIFs
@@ -251,10 +309,10 @@
            ctx.drawImage(video, 0, 0, 640, 480);
            //Add the filters - all functionality for filters here
 
-           if(textEffects){
-           ctx.font = "10px Comic Sans MS";
-           ctx.fillText(userText,100,100);
-           }
+           // if(textEffects){
+           // ctx.font = "10px Comic Sans MS";
+           // ctx.fillText($("#addText").val(),100,100);
+           // }
 
            if(faceOverlay){
              addOverlays();
@@ -295,20 +353,13 @@
             "interval" : 5,
             "min_neighbors" : 1
           });
-          // debugger;
-          // console.log('Found Faces', comp.length);
-
-          // console.log(comp[0].x, comp[0].y);
-          // console.log(comp[0].x + 200.0, comp[0].y + 200.0);
-            // if(comp.length <= 0)
-            // return;
 
 
             // Draw filters on everyone!
             for (var i = 0; i < comp.length; i++) {
               // Make custom changes to each specific overlay, if required
-              const width = comp[i].width * overlayEffects.config.scaleFactor;
-              const height = comp[i].height * overlayEffects.config.scaleFactor;
+              const width = comp[i].width * overlayEffects.config.xscaleFactor;
+              const height = comp[i].height * overlayEffects.config.yscaleFactor;
               const x = comp[i].x + overlayEffects.config.xOffset;
               const y = comp[i].y + overlayEffects.config.yOffset;
 
@@ -322,7 +373,7 @@
 
 
 
-    document.getElementById('snapshot').addEventListener('click', function() {
+    document.getElementById('takesnapshot').addEventListener('click', function() {
       // clearInterval(timerDrawOnCanvas);
       cancelAnimationFrame(timerDrawOnCanvas);
       data_url = document.getElementById('canvas').toDataURL();

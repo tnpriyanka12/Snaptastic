@@ -18,14 +18,47 @@
       <!-- <img class="logo" src="/assets/logo/logo.png" /> -->
     </div>
     </header>
-    <% if @current_user.present? %>
-    <h2> Welcome, <%= @current_user.name %> </h2>
-      <h3><%= link_to 'Click to See Your Profile', @current_user , class: "welcomeuser"%></h3>
 
-      <%= link_to 'Logout', login_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Login', login_path %>
-    <% end %>
+    <% if @current_user.present? %>
+     Welcome, <%= @current_user.name %>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Snaptastic</a>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Gallery</a>
+            </li>
+            <br>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Filters</a>
+            </li>
+            <br>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Login</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact"><%= link_to 'Profile', @current_user , class: "welcomeuser"%></a>
+            </li>
+              <li class="nav-item mx-0 mx-lg-1">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
+              <%= link_to 'Logout', login_path, method: :delete %></a>
+            </li>
+            <% else %>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">
+              <%= link_to 'Login', login_path %></a>
+            </li>
+            <% end %>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
     <!-- <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
