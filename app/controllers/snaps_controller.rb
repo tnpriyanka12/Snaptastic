@@ -12,6 +12,10 @@ class SnapsController < ApplicationController
   def show
   end
 
+  def home
+    @snap = Snap.new
+  end
+
   # GET /snaps/new
   def new
     @snap = Snap.new
@@ -43,7 +47,7 @@ class SnapsController < ApplicationController
       end
     end
     @current_user.snaps << snap
-    raise 'hell'
+    # raise 'hell'
 
 
   end

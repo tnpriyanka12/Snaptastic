@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
 
   private
   def fetch_user
-
     # Retrieve the currently-logged-in user's data from the database
     # (if they are actually logged in)
     if session[:user_id].present?

@@ -1,4 +1,20 @@
-$(document).ready(function() {
+
+  const overlayConfig = {
+    glasses: {
+      scaleFactor: 1,
+      xOffset: 0,
+      yOffset: -100
+    },
+    cat_face: {
+      scaleFactor: 2,
+      xOffset: -20,
+      yOffset: -40
+    }
+  };
+  const CANVAS_REFRESH_RATE = 16;
+
+  $(document).ready(function() {
+  $('#testcanvas').hide();
 
   if( $('body.snaps.new').length ){
 
@@ -38,25 +54,63 @@ $(document).ready(function() {
       // Elements for taking the snapshot i.e, copying the image into canvas
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-      var testcanvas = document.getElementById('canvas');
+      var testcanvas = document.getElementById('testcanvas');
       var testctx = testcanvas.getContext('2d');
       var video = document.getElementById('video');
+      overlayEffects = new Image();
 
-      overlayEffects = new Image()
-      overlayEffects.src = "/assets/cat_face.png";
+      $('.addOverlay').on('click', function() {
+        overlayEffects.src = $(this).attr('src');
+        const overlayName = $(this).data('name');
+        overlayEffects.config = overlayConfig[ overlayName ];
+        faceOverlay = true;
+        console.log('this is ', this,overlayEffects.src )
+      });
 
       // ======== sticker tab - unicar ========
-      $('#sticker').on('click', function() {
-        var canvas_fabric = new fabric.Canvas('canvas');
+      $('.sticker').on('click', function() {
+        var canvas_fabric =  new fabric.Canvas('testcanvas', {
+          width: 640,
+          height: 480,
+        });
+        data_url = document.getElementById('canvas').toDataURL();
+        canvas_fabric.setBackgroundImage(data_url, canvas_fabric.renderAll.bind(canvas_fabric));
 
 
-        fabric.Image.fromURL('/assets/cat_face.png', function(oImg) {
+        fabric.Image.fromURL($(this).attr('src'), function(oImg) {
           // scale image down, and flip it, before adding it onto canvas
-          oImg.scale(0.5).set('flipX', true);
-          canvas.add(oImg);
+          oImg.scale(0.2);
+          canvas_fabric.add(oImg);
         });
 
-      });
+      });//sticker.onclick
+
+      $('#addText').on('click', function(){
+        var canvas_fabric =  new fabric.Canvas('testcanvas', {
+          width: 640,
+          height: 480,
+        });
+        data_url = document.getElementById('canvas').toDataURL();
+        canvas_fabric.setBackgroundImage(data_url, canvas_fabric.renderAll.bind(canvas_fabric));
+
+        function update(jscolor) {
+            // 'jscolor' instance can be used as a string
+            document.getElementByClass('upper-canvas').style.backgroundColor = '#' + jscolor
+        }
+
+         var text = new fabric.IText('Type text here', {
+           width: 300,
+           top: 240,
+           left: 80,
+           fontSize: 10,
+           textAlign: 'center',
+           fixedWidth: 150,
+           fill: 'red',
+           fontFamily: 'Avenir'
+         });
+
+         canvas_fabric.add(text);
+       });
 
 
         //temporary - to be removed
@@ -72,9 +126,9 @@ $(document).ready(function() {
         createGIFs();
 
 
-               $('#addOverlay').on('click', function() {
-                 faceOverlay = !faceOverlay;
-               });
+               // $('.addOverlay').on('click', function() {
+               //   faceOverlay = !faceOverlay;
+               // });
 
                $('#addFilter').on('click', function() {
                 filterEffects = !filterEffects;
@@ -191,14 +245,15 @@ $(document).ready(function() {
 
       function drawWebCamOnCanvas(){
 
-       timerDrawOnCanvas = setInterval( function () {
+       // timerDrawOnCanvas = setInterval( function () {
+       const animate = function () {
            //Draw the webcam on canvas every 200ms -> now we have a live canvas on which we can draw
            ctx.drawImage(video, 0, 0, 640, 480);
            //Add the filters - all functionality for filters here
 
            if(textEffects){
            ctx.font = "10px Comic Sans MS";
-           ctx.fillText("Hurray!!!!!",100,100);
+           ctx.fillText(userText,100,100);
            }
 
            if(faceOverlay){
@@ -211,8 +266,12 @@ $(document).ready(function() {
              removeFilter()
            }
            // console.log('after trigger photo take!');
-         }, 100);
+           timerDrawOnCanvas = requestAnimationFrame(animate);
+         };
+         // , CANVAS_REFRESH_RATE);
          // });
+
+         animate();
 
       }//drawWebCamOnCanvas()
 
@@ -228,12 +287,15 @@ $(document).ready(function() {
       }
 
       function addOverlays() {
+
+
           var comp = ccv.detect_objects({
             "canvas" : (ccv.pre(canvas)),
             "cascade" : cascade,
             "interval" : 5,
             "min_neighbors" : 1
           });
+          // debugger;
           // console.log('Found Faces', comp.length);
 
           // console.log(comp[0].x, comp[0].y);
@@ -241,9 +303,17 @@ $(document).ready(function() {
             // if(comp.length <= 0)
             // return;
 
+
             // Draw filters on everyone!
             for (var i = 0; i < comp.length; i++) {
-              ctx.drawImage(overlayEffects, comp[i].x, comp[i].y,comp[i].width, comp[i].height);
+              // Make custom changes to each specific overlay, if required
+              const width = comp[i].width * overlayEffects.config.scaleFactor;
+              const height = comp[i].height * overlayEffects.config.scaleFactor;
+              const x = comp[i].x + overlayEffects.config.xOffset;
+              const y = comp[i].y + overlayEffects.config.yOffset;
+
+              ctx.drawImage(overlayEffects, x, y, width, height);
+            // }
             }
           // });
 
@@ -253,7 +323,10 @@ $(document).ready(function() {
 
 
     document.getElementById('snapshot').addEventListener('click', function() {
-      clearInterval(timerDrawOnCanvas);
+      // clearInterval(timerDrawOnCanvas);
+      cancelAnimationFrame(timerDrawOnCanvas);
+      data_url = document.getElementById('canvas').toDataURL();
+      $('#testcanvas', {src: data_url}).appendTo('#gifPreview');
     });
 
   // Downloading an image to a computer
@@ -268,7 +341,7 @@ $(document).ready(function() {
 
     // Saving an image to database
     document.getElementById('save').addEventListener('click', function() {
-    var imageData = document.getElementById('canvas').toDataURL('image/png');
+    var imageData = document.getElementById('testcanvas').toDataURL('image/png');
       // console.log(imageData);
       $.ajax({
         url: '/snaps',

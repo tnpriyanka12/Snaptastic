@@ -58,3 +58,5 @@ gem 'annotate'
 gem 'jquery-rails'
 gem 'cloudinary'
 gem 'rails_12factor', group: :production
+gem "font-awesome-rails"
+gem 'bootstrap', '~> 4.0.0'

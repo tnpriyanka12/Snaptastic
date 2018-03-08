@@ -1,37 +1,39 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Snaps</h1>
+<div id="portfolio" class="container-fluid text-center bg-grey">
 
-<table>
-  <thead>
-    <tr>
-      <th>Snap</th>
-      <th>Snap name</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @snaps.each do |snap| %>
-      <tr>
-        <% if snap.snap.present? %>
-        <td><%= cl_image_tag snap.snap %></td>
-        <% end %>
 
+  <div class="row">
+  <% @snaps.each do |snap| %>
+    <div class="col-md-6 col-lg-4">
+      <div class="thumbnail">
+        <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+  <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+    <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
         <% if snap.snap_name.present? %>
-        <td><%= snap.snap_name %></td>
+        Name: <%= snap.snap_name %><br>
+        Owner: <%= snap.user.name %>
+
         <% end %>
 
-        <td><%= snap.user_id %></td>
-        <td><%= link_to 'Show', snap %></td>
-        <td><%= link_to 'Edit', edit_snap_path(snap) %></td>
-        <td><%= link_to 'Destroy', snap, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <% if snap.snap.present? %>
+        <%= cl_image_tag snap.snap , class:"img-fluid" %>
+        <% end %>
+
+        <%= link_to 'Show', snap %>
+        <%= link_to 'Destroy', snap, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+      </div>
+  </div>
+</div>
+</div>
     <% end %>
-  </tbody>
-</table>
+</div>
 
 <br>
 
 <%= link_to 'New Snap', new_snap_path %>
+</div>
