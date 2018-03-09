@@ -61,6 +61,7 @@
     $('#addFreeDraw').hide();
 
 
+
   if( $('body.snaps.new').length ){
 
     //Camera draining my battery.. set a timer for it!
@@ -115,12 +116,38 @@
               this.download = 'test.png';
           }, false);
 
+
+          // Saving an image to database
+          document.getElementById('save').addEventListener('click', function() {
+          var imageData = canvas_fabric.toDataURL('image/png');
+            // console.log(imageData);
+            $.ajax({
+              url: '/snaps',
+              method: 'post',
+              dataType: 'json',
+              data: {
+                snap: imageData
+              }
+            })
+            .done(function (data) {
+              console.log('Successfull AJAX Request', data);
+              // Once successful request is done, redirect user to the Profile page
+            })
+            .fail(function () {
+              console.log('Failed AJAX Request!');
+            });
+            window.location.href = "http://localhost:3000/snaps/";
+
+          });
+
+
         });
 
       });//sticker.onclick
 
       $('#addText').on('click', function(){
         $('#testcanvas').show();
+        $('#canvas').hide();
         var canvas_fabric =  new fabric.Canvas('testcanvas', {
           width: 640,
           height: 480,
@@ -152,12 +179,38 @@
              this.href = canvas_fabric.toDataURL();
              this.download = 'test.png';
          }, false);
+
+         // Saving an image to database
+         document.getElementById('save').addEventListener('click', function() {
+         var imageData = canvas_fabric.toDataURL('image/png');
+           // console.log(imageData);
+           $.ajax({
+             url: '/snaps',
+             method: 'post',
+             dataType: 'json',
+             data: {
+               snap: imageData
+             }
+           })
+           .done(function (data) {
+             console.log('Successfull AJAX Request', data);
+             // Once successful request is done, redirect user to the Profile page
+           })
+           .fail(function () {
+             console.log('Failed AJAX Request!');
+           });
+           window.location.href = "http://localhost:3000/snaps/";
+
+         });
+
+
        });
 
 
        // activate the brush (drawing mode is true)
            $('#addFreeDraw').on('click', function() {
              $('#testcanvas').show();
+             $('#canvas').hide();
 
              var canvas_fabric =  new fabric.Canvas('testcanvas', {
                width: 640,
@@ -176,9 +229,33 @@
 
              document.getElementById('download').addEventListener('click', function() {
                  this.href = canvas_fabric.toDataURL();
-                 debugger;
+                 // debugger;
                  this.download = 'test.png';
              }, false);
+
+             // Saving an image to database
+             document.getElementById('save').addEventListener('click', function() {
+             var imageData = canvas_fabric.toDataURL('image/png');
+               // console.log(imageData);
+               $.ajax({
+                 url: '/snaps',
+                 method: 'post',
+                 dataType: 'json',
+                 data: {
+                   snap: imageData
+                 }
+               })
+               .done(function (data) {
+                 console.log('Successfull AJAX Request', data);
+                 // Once successful request is done, redirect user to the Profile page
+               })
+               .fail(function () {
+                 console.log('Failed AJAX Request!');
+               });
+               window.location.href = "http://localhost:3000/snaps/";
+
+             });
+
 
    });
 
@@ -299,8 +376,32 @@
          encoder.download("download.gif");
 
          $('<img>', {src: data_url}).appendTo('#gifPreview');
-         $('<button>Save</button>').on('click', function () {
 
+
+         // Saving an image to database
+         document.getElementById('save').addEventListener('click', function() {
+         var imageData = canvas.toDataURL('image/png');
+           // console.log(imageData);
+           $.ajax({
+             url: '/snaps',
+             method: 'post',
+             dataType: 'json',
+             data: {
+               snap: imageData
+             }
+           })
+           .done(function (data) {
+             console.log('Successfull AJAX Request', data);
+             // Once successful request is done, redirect user to the Profile page
+           })
+           .fail(function () {
+             console.log('Failed AJAX Request!');
+           });
+           window.location.href = "http://localhost:3000/snaps/";
+
+         });
+
+         $('').on('click', function () {
            window.location.href = "http://localhost:3000/snaps/";
          });
 
@@ -442,6 +543,7 @@
 
           setTimeout(function(){
           document.getElementById('download').href = document.getElementById('canvas').toDataURL();
+
           document.getElementById('download').click();
           alert('Your image is downloaded!')
           }, 3000);
