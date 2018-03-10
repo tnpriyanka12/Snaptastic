@@ -37,8 +37,8 @@
       yOffset: -100
     },
     unicorn: {
-      xscaleFactor: 3,
-      yscaleFactor: 4,
+      xscaleFactor: 1.5,
+      yscaleFactor: 1.5,
       xOffset: 100,
       yOffset: -240
     }
