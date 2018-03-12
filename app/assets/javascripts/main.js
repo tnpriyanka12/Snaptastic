@@ -309,7 +309,7 @@
             // { video & audio => true } since we only want video+audio
             //Stream object is the stream from users webcam -> so attach this as src of video tag
             //createObjectURL is used to create a new obj which is same type as stream
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
             .then(function(stream) {
                 curr_stream = stream;
                 video.src = window.URL.createObjectURL(stream);
