@@ -401,9 +401,9 @@
 
          });
 
-         $('').on('click', function () {
-           window.location.href = "http://localhost:3000/snaps/";
-         });
+         // $('').on('click', function () {
+         //   window.location.href = "http://localhost:3000/snaps/";
+         // });
 
         });
 
