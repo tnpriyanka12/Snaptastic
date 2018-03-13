@@ -136,7 +136,8 @@
             .fail(function () {
               console.log('Failed AJAX Request!');
             });
-            window.location.href = "http://localhost:3000/snaps/";
+            window.location.href = "/snaps";
+
 
           });
 
@@ -199,7 +200,8 @@
            .fail(function () {
              console.log('Failed AJAX Request!');
            });
-           window.location.href = "http://localhost:3000/snaps/";
+           window.location.href = "/snaps";
+
 
          });
 
@@ -252,7 +254,8 @@
                .fail(function () {
                  console.log('Failed AJAX Request!');
                });
-               window.location.href = "http://localhost:3000/snaps/";
+               window.location.href = "/snaps";
+
 
              });
 
@@ -397,7 +400,9 @@
            .fail(function () {
              console.log('Failed AJAX Request!');
            });
-           window.location.href = "http://localhost:3000/snaps/";
+           window.location.href = "/snaps";
+
+           // alert('Your snap is saved! Please check the Gallery :)');
 
          });
 
@@ -528,7 +533,7 @@
       .fail(function () {
         console.log('Failed AJAX Request!');
       });
-      window.location.href = "http://localhost:3000/snaps/";
+      window.location.href = "/snaps";
 
     });
 
