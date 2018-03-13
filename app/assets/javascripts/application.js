@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require rails-ujs
+//= require fabric
+//= require semantic-ui
 //= require gui
 //= require main
 //= require_tree .
-//= require bootstrap-sprockets
