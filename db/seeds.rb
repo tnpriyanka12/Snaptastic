@@ -14,6 +14,14 @@ s3 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520
 s4 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520315711/u4ztuvjaeqcnzi0xsxtr.png", snap_name: "mysnap22"
 s5 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520319720/i9qc4qcurzwbg4slqhog.png", snap_name: "mysnap31"
 s6 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520392461/qws55dzpdqsbewzcqgnf.png", snap_name: "mysnap41"
+s7 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520559101/epjwlsxgkbygdcosmgnp.png", snap_name: "mysnap41"
+s8 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520556163/tfvugmbwp7s3pwgtqpfp.png", snap_name: "abc"
+s9 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520555552/b0ge92pmqhbe0xcqv2he.png", snap_name: "abc"
+s10 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520554808/hhzjh1teguzfvwui6kuw.png", snap_name: "abc"
+s11 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437243/download_39_lzpupt.jpg", snap_name: "abc"
+s12 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437287/test_56_waw1my.png", snap_name: "abc"
+s13 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437278/test_54_uwcwol.png", snap_name: "abc"
+
 puts "Number of Snaps: #{Snap.all.length}"
 
 Comment.destroy_all
@@ -30,7 +38,7 @@ c10 = Comment.create comment_string:":)!!!!!!!!!!!!!!!!!"
 puts "Number of Comments: #{Comment.all.length}"
 
 
-u1.snaps << s1 << s3
+u1.snaps << s1 << s3 << s7 << s8 << s9 << s10 << s11 << s12 << s13
 u2.snaps << s2 << s4
 u3.snaps << s5
 u4.snaps << s6
