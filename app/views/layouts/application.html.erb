@@ -18,13 +18,6 @@
       <!-- <img class="logo" src="/assets/logo/logo.png" /> -->
     </div>
     </header>
-    <% if @current_user.present? %>
-    <h2> Welcome, <%= @current_user.name %> </h2>
-      <h3><%= link_to 'Click to See Your Profile', @current_user , class: "welcomeuser"%></h3>
-      <%= link_to 'Logout', login_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Login', login_path %>
-    <% end %>
 
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -41,7 +34,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="<%= root_path %>">Home</a></li>
             <li class="active"><a href="<%= root_path %>">Take Snap</a></li>
-            <% if @current_user %>
+            <% if @current_user.present? %>
             <li class="active"><a href="<%= @current_user %>"><%= link_to 'Profile', @current_user , class: "welcomeuser"%></a>Profile</li>
             <% else %>
             <li class="active"><a href="<%= new_user_path %>">SignUp</a></li>
@@ -58,6 +51,15 @@
         </div>
       </div>
     </nav>
+
+                <% if @current_user.present? %>
+                <h2> Welcome, <%= @current_user.name %> </h2>
+                  <h3><%= link_to 'Click to See Your Profile', @current_user , class: "welcomeuser"%></h3>
+                  <%= link_to 'Logout', login_path, method: :delete %>
+                <% else %>
+                  <%= link_to 'Login', login_path %>
+                <% end %>
+
 
 
     <%= yield %>
