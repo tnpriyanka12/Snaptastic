@@ -264,7 +264,7 @@
 
         //temporary - to be removed
         //Camera draining my battery.. set a timer for it!
-        setTimeOutForCamera();
+        //setTimeOutForCamera();
         // Grab Camera/Video element, create settings, etc.
         getCamElements();
         // Draw Camera/Video element on Canvas
