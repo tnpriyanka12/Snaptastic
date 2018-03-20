@@ -18,7 +18,7 @@ s7 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1520
 s8 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520556163/tfvugmbwp7s3pwgtqpfp.png", snap_name: "abc"
 s9 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520555552/b0ge92pmqhbe0xcqv2he.png", snap_name: "abc"
 s10 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1520554808/hhzjh1teguzfvwui6kuw.png", snap_name: "abc"
-s11 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437243/download_39_lzpupt.jpg", snap_name: "abc"
+s11 = Snap.create snap:"http://res.cloudinary.com/tnpriyanka12/image/upload/v1521437243/download_39_lzpupt.gif", snap_name: "abc"
 s12 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437287/test_56_waw1my.png", snap_name: "abc"
 s13 = Snap.create snap:"https://res.cloudinary.com/tnpriyanka12/image/upload/t_media_lib_thumb/v1521437278/test_54_uwcwol.png", snap_name: "abc"
 

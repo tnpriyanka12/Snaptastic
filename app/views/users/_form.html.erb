@@ -1,3 +1,8 @@
+<div style = "color:red; font-size:20px">
+<%=flash[:error]%>
+</div>
+
+
 <%= form_with(model: user, html: {multipart: true}, local: true) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">

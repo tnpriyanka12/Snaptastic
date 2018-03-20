@@ -28,27 +28,30 @@ class SnapsController < ApplicationController
   # POST /snaps
   # POST /snaps.json
   def create
-    snap = Snap.new(snap_params)
-    # puts params[:snap]
-    # binding.pry
 
-    if params[:snap].present?
-      # Then call Cloudinary's upload method, passing in the file in params
-      req = Cloudinary::Uploader.upload(params[:snap])
-      snap.snap = req["public_id"]
-    end
-    respond_to do |format|
-      if snap.save
-        format.html { redirect_to snap, notice: 'Snap was successfully created.' }
-        format.json { render json: snap, status: :ok }
-      else
-        format.html { render :new }
-        format.json { render json: snap.errors, status: :unprocessable_entity }
+  snap = Snap.new(snap_params)
+  if @current_user.present?
+      if params[:snap].present?
+        # Then call Cloudinary's upload method, passing in the file in params
+        req = Cloudinary::Uploader.upload(params[:snap])
+        snap.snap = req["public_id"]
       end
-    end
+      respond_to do |format|
+        if snap.save
+          format.html { redirect_to snap, notice: 'Snap was successfully created.' }
+          format.json { render json: snap, status: :ok }
+        else
+          format.html { render :new }
+          format.json { render json: snap.errors, status: :unprocessable_entity }
+        end
+      end
     @current_user.snaps << snap
-    # raise 'hell'
-
+  else
+    flash[:error] = "You must be logged in for this action."
+    # format.html { redirect_to snap, notice: 'Snap was not created.' }
+    # format.json { render json: snap, status: :ok }
+    # binding.pry
+  end # if current user present
 
   end
 

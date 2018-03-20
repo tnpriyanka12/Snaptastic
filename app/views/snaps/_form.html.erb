@@ -1,3 +1,9 @@
+<div style = "color:red; font-size:20px">
+<%=flash[:error]%>
+</div>
+
+
+
 <%= form_with(model: snap, local: true, html: {multipart: true}) do |form| %>
   <% if snap.errors.any? %>
     <div id="error_explanation">

@@ -134,7 +134,7 @@
               // Once successful request is done, redirect user to the Profile page
             })
             .fail(function () {
-              console.log('Failed AJAX Request!');
+              console.log('error',data);
             });
             window.location.href = "/snaps";
 
@@ -198,7 +198,7 @@
              // Once successful request is done, redirect user to the Profile page
            })
            .fail(function () {
-             console.log('Failed AJAX Request!');
+             console.log('error',data);
            });
            window.location.href = "/snaps";
 
@@ -252,7 +252,7 @@
                  // Once successful request is done, redirect user to the Profile page
                })
                .fail(function () {
-                 console.log('Failed AJAX Request!');
+                 console.log('error',data);
                });
                window.location.href = "/snaps";
 
@@ -398,7 +398,7 @@
              // Once successful request is done, redirect user to the Profile page
            })
            .fail(function () {
-             console.log('Failed AJAX Request!');
+             console.log('error',data);
            });
            window.location.href = "/snaps";
 
@@ -529,11 +529,15 @@
       .done(function (data) {
         console.log('Successfull AJAX Request', data);
         // Once successful request is done, redirect user to the Profile page
+        window.location.href = "/snaps";
+
       })
-      .fail(function () {
-        console.log('Failed AJAX Request!');
+      .fail(function (err ) {
+        console.log('error',err );
+        window.location.href = "/login";
+        alert('Please Login to continue');
       });
-      window.location.href = "/snaps";
+
 
     });
 
