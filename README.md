@@ -2,6 +2,9 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+## LIVE SITE LINK
+https://snaptastic.herokuapp.com/
+
 
 ### Cam details
 Pure HTML5 Webcam features used.
@@ -54,3 +57,8 @@ Added 'Rails.application.config.filter_parameters += [:snap]' to avoid the loggi
  Done using Canvas html5 features
 
 ##Gifs
+
+
+## For test,
+username: user1@gmail.com
+password: chicken

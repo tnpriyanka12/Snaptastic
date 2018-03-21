@@ -530,7 +530,6 @@
         console.log('Successfull AJAX Request', data);
         // Once successful request is done, redirect user to the Profile page
         window.location.href = "/snaps";
-
       })
       .fail(function (err ) {
         console.log('error',err );
