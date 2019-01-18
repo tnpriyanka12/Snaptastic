@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require rails-ujs
+//= require cloudinary
 //= require bootstrap
 //= require gui
 //= require main
